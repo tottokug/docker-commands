@@ -5,6 +5,7 @@ skelton:
 
 	cat Makefile.template |sed -e "s/##NAME##/$(NAME)/g" > $(NAME)/Makefile
 	echo "#!/bin/sh" > $(NAME)/$(NAME).sh
+	chmod +x $(NAME)/$(NAME).sh
 	cat Dockerfile.template |sed -e "s/##NAME##/$(NAME)/g" > $(NAME)/Dockerfile
 	echo "FROM busybox" > $(NAME)/Dockerfile
 	echo "COPY $(NAME).sh /$(NAME)" >> $(NAME)/Dockerfile
