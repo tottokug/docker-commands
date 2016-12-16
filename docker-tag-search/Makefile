@@ -1,6 +1,6 @@
 VERSION = 1.0.0
 ORGANIZATION=commands
-REPOSITORY=docker-search
+REPOSITORY=docker-tag-search
 
 all: build
   
@@ -13,7 +13,7 @@ push:
 	git push origin ${VERSION}
 
 shell:
-	docker run --name ${REPOSITORY} -it --rm -p ${PORT}:${PORT} ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/sh
+	docker run --name ${REPOSITORY} -it --rm  ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/sh
 
 run:
 	docker run --name ${REPOSITORY} --rm -p ${PORT}:${PORT} ${ORGANIZATION}/${REPOSITORY}:${VERSION}
