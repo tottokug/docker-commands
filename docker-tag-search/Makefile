@@ -16,4 +16,4 @@ shell:
 	docker run --name ${REPOSITORY} -it --rm  ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/sh
 
 run:
-	docker run --name ${REPOSITORY} --rm -p ${PORT}:${PORT} ${ORGANIZATION}/${REPOSITORY}:${VERSION}
+	docker run --name ${REPOSITORY} --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION} 

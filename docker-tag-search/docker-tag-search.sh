@@ -10,6 +10,6 @@ then
 fi
 TERM=$1
 ENDPOINT="https://registry.hub.docker.com"
-wget ${ENDPOINT}/v2/repositories/${TERM}/tags/ -O -
+curl ${ENDPOINT}/v2/repositories/${TERM}/tags/ -O - |jq .
 
 # https://registry.hub.docker.com/v2/repositories/microsoft/cntk/tags/
