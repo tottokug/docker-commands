@@ -1,4 +1,4 @@
-VERSION = 1.0.0
+VERSION = 0.8.13
 ORGANIZATION=commands
 REPOSITORY=docker-tag-search
 
@@ -17,3 +17,7 @@ shell:
 
 run:
 	docker run --name ${REPOSITORY} --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION} 
+
+release:
+	#
+	
