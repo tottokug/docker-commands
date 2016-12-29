@@ -1,3 +1,0 @@
-[submodule "wkhtmltopdf/wkhtmltopdf"]
-	path = wkhtmltopdf/wkhtmltopdf
-	url = git@github.com:tottokug/wkhtmltopdf.git
