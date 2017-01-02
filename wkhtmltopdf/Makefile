@@ -13,8 +13,8 @@ push:
 	git push origin ${VERSION}
 
 shell:
-	docker run --name ${REPOSITORY}  -it --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/sh
-#	docker run --name ${REPOSITORY} -v $(CURDIR)/volume:/data -it --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/sh
+#	docker run --name ${REPOSITORY}  -it --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/bash
+	docker run --name ${REPOSITORY} -v $(CURDIR)/volume:/data -it --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION} /bin/sh
 
 run:
 	docker run --name ${REPOSITORY} -v $(CURDIR)/volume:/data  --rm ${ORGANIZATION}/${REPOSITORY}:${VERSION}

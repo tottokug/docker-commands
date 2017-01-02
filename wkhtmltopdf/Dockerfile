@@ -1,42 +1,20 @@
-FROM alpine
+FROM debian
 MAINTAINER Ryuichi Tokugami
 
-COPY wkhtmltopdf /usr/local/src/wkhtmltopdf
-COPY patches/ /usr/local/src/
+RUN apt-get update; apt-get install -y wget xz-utils fontconfig libxrender1 libxext6 libx11-6 && \
+    wget http://download.gna.org/wkhtmltopdf/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    tar Jxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    cp -r wkhtmltox/bin/* /usr/bin/ ; cp -r wkhtmltox/lib/* /usr/lib/ ; cp -r wkhtmltox/include/* /usr/include/ && \
+    mkdir -p /usr/share/fonts/otf ; \
+    wget https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SourceHanSansJ.zip && \
+    unzip SourceHanSansJ.zip ; mv SourceHanSansJ /usr/share/fonts/otf/ ; \
+    wget https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SourceHanSansHWJ.zip && \
+    unzip SourceHanSansHWJ.zip ; mv SourceHanSansHWJ /usr/share/fonts/otf/ ; \
+    wget https://github.com/adobe-fonts/source-han-sans/raw/release/SubsetOTF/SourceHanSansJP.zip && \
+    unzip SourceHanSansJP.zip ; mv SourceHanSansJP /usr/share/fonts/otf/ ; \
+    rm -f SourceHanSans*; fc-cache j; rm -rf /wkhtml* ;  \
+    apt-get　--purge　remove wget xz-utils ; rm -rf /var/lib/apt/lists/* 
 
-WORKDIR /usr/local/src/wkhtmltopdf/qt
-# Qt configure phase
-RUN apk add --update make perl g++ linux-headers \
-    ca-certificates openssl-dev \
-    libx11-dev libxcursor-dev libxext-dev \
-    libxfixes-dev libxft-dev \
-    libxrandr-dev libxrender-dev python
-RUN    patch -p1 <  01.patch 
-RUN yes |  ./configure -prefix /usr/local \
-    -opensource -release -static -fast -openssl \
-    -nomake tools,examples,demos,docs,translations  \
-    -qt-libpng -qt-libmng -qt-libjpeg -graphicssystem raster \
-    -largefile -rpath \
-    -no-opengl -no-dbus -no-multimedia \
-    -no-3dnow -no-sse -no-sse2  -qt-zlib -qt-libtiff \
-    -no-phonon-backend -webkit -no-scripttools -no-mmx \
-    -no-accessibility -no-stl -no-sql-ibase \
-    -no-sql-mysql -no-sql-odbc -no-sql-psql -no-sql-sqlite \
-    -no-sql-sqlite2 -no-qt3support -no-xmlpatterns \
-    -no-phonon -no-nis -no-cups -no-iconv -no-pch -no-gtkstyle \
-    -no-nas-sound -no-sm -no-xshape -no-xinerama -no-xcursor \
-    -no-xfixes -no-xrandr -no-xrender -no-mitshm -no-xinput -no-xkb \
-    -no-glib -no-openvg -no-opengl -no-xsync -no-svg ;
-
-RUN make && make install 
-
-WORKDIR /usr/local/src/wkhtmltopdf
-RUN scripts/build.py setup-schroot-generic
-
-
-
-RUN wkhtmltopdf
-#RUN chmod +x /usr/bin/test.sh
 WORKDIR /data
-#ENTRYPOINT ["/usr/local/bin/wkhtmltopdf"]
-#CMD ["-h"]
+ENTRYPOINT ["/usr/local/bin/wkhtmltopdf"]
+CMD ["-h"]
