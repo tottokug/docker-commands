@@ -8,4 +8,6 @@ docker run --rm commands/docker-search TERM
 
 
 ## Command list
-- commands/docker-search
+
+|command|version|
+|commands/docker-tag-search|1.0.0|
